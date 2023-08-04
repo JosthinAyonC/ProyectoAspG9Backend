@@ -261,3 +261,5 @@ D:\ASPprojects\UG\CooperativaDeBuses\CooperativaDeBuses\obj\Debug\net6.0\refint\
 D:\ASPprojects\UG\CooperativaDeBuses\CooperativaDeBuses\obj\Debug\net6.0\CooperativaDeBuses.pdb
 D:\ASPprojects\UG\CooperativaDeBuses\CooperativaDeBuses\obj\Debug\net6.0\CooperativaDeBuses.genruntimeconfig.cache
 D:\ASPprojects\UG\CooperativaDeBuses\CooperativaDeBuses\obj\Debug\net6.0\ref\CooperativaDeBuses.dll
+D:\ASPprojects\UG\CooperativaDeBuses\CooperativaDeBuses\bin\Debug\net6.0\AutoMapper.dll
+D:\ASPprojects\UG\CooperativaDeBuses\CooperativaDeBuses\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

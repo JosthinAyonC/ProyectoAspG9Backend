@@ -8,6 +8,6 @@ namespace CooperativaDeBuses.Models.Repositories.BusRepository
         Task<Bus> AddBus(Bus bus);
         Task<Bus> GetBus(int id);
         Task DeleteBus(int id);
-        Task UpdateBus(Bus bus);
+        Task<Bus> UpdateBus(Bus bus);
     }
 }

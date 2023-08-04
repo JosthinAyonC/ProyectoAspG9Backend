@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using CooperativaDeBuses.Models;
 using CooperativaDeBuses.Models.Repositories.BusRepository;
+using CooperativaDeBuses;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,8 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
 {
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
-
+// Automapper
+builder.Services.AddAutoMapper(typeof(Program));
 
 // Add Services
 builder.Services.AddScoped<IBusRepository, BusRepository>();

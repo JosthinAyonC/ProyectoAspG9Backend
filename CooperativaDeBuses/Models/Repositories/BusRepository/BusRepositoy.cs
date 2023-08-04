@@ -1,10 +1,16 @@
 using Microsoft.EntityFrameworkCore;
+using CooperativaDeBuses.Models;
 
 namespace CooperativaDeBuses.Models.Repositories.BusRepository
 {
     public class BusRepository : IBusRepository
     {
         private readonly ProyectoG9aspContext _context;
+
+        public BusRepository(ProyectoG9aspContext context)
+        {
+            _context = context;
+        }
 
         public async Task<List<Bus>> GetListBus()
         {
@@ -25,26 +31,52 @@ namespace CooperativaDeBuses.Models.Repositories.BusRepository
             return bus;
         }
 
-        public async Task UpdateBus(Bus bus)
+        public async Task<Bus> UpdateBus(Bus bus)
         {
-            var busItem = await _context.Buses.FirstOrDefaultAsync(x => x.Id == bus.Id);
+            // Buscar el autobús existente en la base de datos por su Id
+            Bus busExistente = await _context.Buses.FindAsync(bus.Id);
 
-            if(busItem != null)
+            // Si no se encuentra el autobús, retornar null
+            if (busExistente == null)
             {
-                busItem.Capacidad = bus.Capacidad;
-                busItem.Model = bus.Model;
-                busItem.Marca = bus.Marca;
-                busItem.Placa = bus.Placa;
-
-                await _context.SaveChangesAsync();
+                return null;
             }
+
+            // Verificar que el autobús no esté en estado "N"
+            if (busExistente.Status == "N")
+            {
+                return null;
+            }
+
+            // Actualizar los campos del autobús existente con los valores proporcionados en el parámetro "bus"
+            if (bus.Capacidad != 0)
+            {
+                busExistente.Capacidad = bus.Capacidad;
+            }
+            if (bus.Model != null)
+            {
+                busExistente.Model = bus.Model;
+            }
+            if (bus.Marca != null)
+            {
+                busExistente.Marca = bus.Marca;
+            }
+            if (bus.Placa != null)
+            {
+                busExistente.Placa = bus.Placa;
+            }
+
+            await _context.SaveChangesAsync();
+            // Retornar el objeto "busExistente" actualizado
+            return busExistente;
         }
+
         public async Task DeleteBus(int id)
         {
-            var bus = await _context.Buses.FindAsync(id);
+            Bus bus = await _context.Buses.FindAsync(id);
             bus.Status = "N";
             await _context.SaveChangesAsync();
         }
-        
+
     }
 }

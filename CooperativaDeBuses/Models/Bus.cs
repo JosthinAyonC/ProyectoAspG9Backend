@@ -20,6 +20,6 @@ namespace CooperativaDeBuses.Models
 
         [Required(ErrorMessage = "La placa es obligatoria.")]
         public string Placa { get; set; }
-        public string Status { get; set; }
+        public string? Status { get; set; }
     }
 }

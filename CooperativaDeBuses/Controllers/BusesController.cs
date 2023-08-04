@@ -6,19 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CooperativaDeBuses.Models;
-using CooperativaDeBuses.Models.Repositories.BusRepository;
+using CooperativaDeBuses.Models.DTOS;
+using CooperativaDeBuses.Models.Repositories.BusRepository; 
+using AutoMapper;   
 
 namespace CooperativaDeBuses.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class BusesController : ControllerBase
     {
         private readonly IBusRepository _busRepository;
+        private readonly IMapper _mapper;
 
-        public BusesController(IBusRepository busRepository)
+        public BusesController(IBusRepository busRepository, IMapper mapper)
         {
             _busRepository = busRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -65,7 +69,7 @@ namespace CooperativaDeBuses.Controllers
 
                 var busGuardado = await _busRepository.AddBus(bus);
 
-                return CreatedAtAction(nameof(GetBus), new { id = busGuardado.Id }, busGuardado);
+                return busGuardado;
 
             }
             catch (Exception ex)
@@ -75,10 +79,12 @@ namespace CooperativaDeBuses.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBus(int id, [FromBody] Bus bus)
+        public async Task<ActionResult<Bus>> PutBus(int id, [FromBody] BusDto busdto)
         {
-            try
+             try
             {
+                var bus = _mapper.Map<Bus>(busdto);
+                bus.Id = id;
                 var busItem = await _busRepository.GetBus(id);
 
                 if (busItem == null)
@@ -89,6 +95,7 @@ namespace CooperativaDeBuses.Controllers
                 await _busRepository.UpdateBus(bus);
 
                 return NoContent();
+
             }
             catch (Exception ex)
             {
