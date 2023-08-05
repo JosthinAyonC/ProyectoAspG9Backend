@@ -22,6 +22,10 @@ namespace CooperativaDeBuses.Models
         [Required(ErrorMessage = "El estado es obligatorio.")]
         public string Status { get; set; }
 
+        [Required(ErrorMessage = "El bus es obligatorio.")]
+        public int BusId { get; set; }
+        public virtual Bus? Bus { get; set; }
+
         public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 
         public virtual ICollection<UsuarioViaje> UsuarioViajes { get; set; } = new List<UsuarioViaje>();

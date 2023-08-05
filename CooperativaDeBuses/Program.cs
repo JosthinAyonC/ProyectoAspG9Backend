@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using CooperativaDeBuses.Models;
 using CooperativaDeBuses.Models.Repositories.BusRepository;
+using CooperativaDeBuses.Models.Repositories.ViajeRepository;
 using CooperativaDeBuses;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +32,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 // Add Services
 builder.Services.AddScoped<IBusRepository, BusRepository>();
+builder.Services.AddScoped<IViajeRepository, ViajeRepository>();
 
 var app = builder.Build();
 

@@ -176,6 +176,7 @@ public partial class ProyectoG9aspContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("destino");
             entity.Property(e => e.Fecha).HasColumnName("fecha");
+            entity.Property(e => e.BusId).HasColumnName("id_bus");
             entity.Property(e => e.Observacion)
                 .HasMaxLength(255)
                 .HasColumnName("observacion");

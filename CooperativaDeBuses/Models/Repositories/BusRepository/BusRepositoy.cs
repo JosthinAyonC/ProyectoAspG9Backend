@@ -14,7 +14,7 @@ namespace CooperativaDeBuses.Models.Repositories.BusRepository
 
         public async Task<List<Bus>> GetListBus()
         {
-            return await _context.Buses.ToListAsync();
+            return await _context.Buses.Where(bus => bus.Status != "N").OrderByDescending(bus => bus.Id).ToListAsync();
         }
 
         public async Task<Bus> GetBus(int id)
@@ -64,6 +64,9 @@ namespace CooperativaDeBuses.Models.Repositories.BusRepository
             if (bus.Placa != null)
             {
                 busExistente.Placa = bus.Placa;
+            }if (bus.Status != null)
+            {
+                busExistente.Status = bus.Status;
             }
 
             await _context.SaveChangesAsync();

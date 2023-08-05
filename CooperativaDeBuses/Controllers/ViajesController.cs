@@ -2,36 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CooperativaDeBuses.Models;
-using CooperativaDeBuses.Models.DTOS;
-using CooperativaDeBuses.Models.Repositories.BusRepository;
 using AutoMapper;
+using CooperativaDeBuses.Models.Repositories.ViajeRepository;
 
 namespace CooperativaDeBuses.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class BusesController : ControllerBase
+    public class ViajesController : ControllerBase
     {
-        private readonly IBusRepository _busRepository;
+        private readonly IViajeRepository _viajeRepository;
         private readonly IMapper _mapper;
 
-        public BusesController(IBusRepository busRepository, IMapper mapper)
+        public ViajesController(IViajeRepository viajeRepository, IMapper mapper)
         {
-            _busRepository = busRepository;
+            _viajeRepository = viajeRepository;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bus>>> GetBuses()
+        public async Task<ActionResult<IEnumerable<Viaje>>> GetViajes()
         {
             try
             {
-                var buses = await _busRepository.GetListBus();
-                return Ok(buses);
+                var viajes = await _viajeRepository.GetListViaje();
+                return Ok(viajes);
             }
             catch (Exception ex)
             {
@@ -40,16 +39,16 @@ namespace CooperativaDeBuses.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Bus>> GetBus(int id)
+        public async Task<ActionResult<Viaje>> GetViaje(int id)
         {
             try
             {
-                var bus = await _busRepository.GetBus(id);
-                if (bus == null)
+                var viaje = await _viajeRepository.GetViaje(id);
+                if (viaje == null)
                 {
                     return NotFound();
                 }
-                return bus;
+                return viaje;
             }
             catch (Exception ex)
             {
@@ -58,7 +57,7 @@ namespace CooperativaDeBuses.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Bus>> PostBus([FromBody] Bus bus)
+        public async Task<ActionResult<Viaje>> PostViaje([FromBody] Viaje viaje)
         {
             try
             {
@@ -67,9 +66,9 @@ namespace CooperativaDeBuses.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var busGuardado = await _busRepository.AddBus(bus);
+                var viajeGuardado = await _viajeRepository.AddViaje(viaje);
 
-                return Ok(new { message = $"Bus creado satisfactoriamente" });
+                return Ok("Viaje guardado exitosamente");
 
             }
             catch (Exception ex)
@@ -79,22 +78,23 @@ namespace CooperativaDeBuses.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Bus>> PutBus(int id, [FromBody] BusDto busdto)
+        public async Task<ActionResult<Viaje>> PutViaje(int id, [FromBody] ViajeDto viajedto)
         {
             try
             {
-                var bus = _mapper.Map<Bus>(busdto);
-                bus.Id = id;
-                var busItem = await _busRepository.GetBus(id);
+                var viaje = _mapper.Map<Viaje>(viajedto);
+                viaje.Id = id;
+                var viajeItem = await _viajeRepository.GetViaje(id);
 
-                if (busItem == null)
+                if (viajeItem == null)
                 {
                     return NotFound();
                 }
 
-                Bus busA = await _busRepository.UpdateBus(bus);
+                Viaje viajeEdit = await _viajeRepository.UpdateViaje(viaje);
 
-                return Ok(new { message = $"Bus actualizado satisfactoriamente" });
+                return Ok(viajeEdit);
+
             }
             catch (Exception ex)
             {
@@ -103,19 +103,18 @@ namespace CooperativaDeBuses.Controllers
         }
 
         [HttpPut("eliminar/{id}")]
-        public async Task<ActionResult<Bus>> DeleteBus(int id)
+        public async Task<ActionResult<Viaje>> DeleteViaje(int id)
         {
             try
             {
-                await _busRepository.DeleteBus(id);
+                await _viajeRepository.DeleteViaje(id);
 
-                return Ok(new { message = $"Bus con id {id} eliminado" });
+                return Ok(new { message = $"Viaje con id {id} eliminado" });
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
     }
 }

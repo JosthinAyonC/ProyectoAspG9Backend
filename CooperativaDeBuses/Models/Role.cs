@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace CooperativaDeBuses.Models
+namespace CooperativaDeBuses.Models;
+
+public partial class Role
 {
-    public partial class Role
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        [Required(ErrorMessage = "El nombre es obligatorio.")]
-        public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
-        public virtual ICollection<UsuarioRole> UsuarioRoles { get; set; } = new List<UsuarioRole>();
-    }
+    public virtual ICollection<UsuarioRole> UsuarioRoles { get; set; } = new List<UsuarioRole>();
 }
