@@ -3,6 +3,8 @@ using System.Text.Json.Serialization;
 using CooperativaDeBuses.Models;
 using CooperativaDeBuses.Models.Repositories.BusRepository;
 using CooperativaDeBuses.Models.Repositories.ViajeRepository;
+using CooperativaDeBuses.Models.Repositories.UsuarioRepository;
+using CooperativaDeBuses.Models.Repositories.TicketRepository;
 using CooperativaDeBuses;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +35,8 @@ builder.Services.AddAutoMapper(typeof(Program));
 // Add Services
 builder.Services.AddScoped<IBusRepository, BusRepository>();
 builder.Services.AddScoped<IViajeRepository, ViajeRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 
 var app = builder.Build();
 
