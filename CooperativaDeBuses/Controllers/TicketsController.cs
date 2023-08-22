@@ -108,7 +108,7 @@ namespace CooperativaDeBuses.Controllers
 
                 Ticket ticketA = await _ticketRepository.UpdateTicket(ticket);
 
-                return Ok(ticketA);
+                return Ok(new{message = "Ticket actualizado exitosamente"});
 
             }
             catch (Exception ex)

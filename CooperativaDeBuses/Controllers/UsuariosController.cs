@@ -31,7 +31,7 @@ namespace CooperativaDeBuses.Controllers
             try
             {
                 var Usuarios = await _usuarioRepository.GetListUsuario();
-                return Ok(Usuarios);
+                return Ok(new {message = "Usuario guardado exitosamente" });
             }
             catch (Exception ex)
             {
@@ -87,7 +87,7 @@ namespace CooperativaDeBuses.Controllers
 
                 Usuario UsuarioGuardado = await _usuarioRepository.AddUsuario(Usuario);
 
-                return Ok("Usuario guardado exitosamente");
+                return Ok(new{message = "Usuario guardado exitosamente"});
 
             }
             catch (Exception ex)
@@ -110,9 +110,9 @@ namespace CooperativaDeBuses.Controllers
                     return NotFound();
                 }
 
-                Usuario UsuarioA = await _usuarioRepository.UpdateUsuario(Usuario);
+                await _usuarioRepository.UpdateUsuario(Usuario);
 
-                return Ok(UsuarioA);
+                return Ok(new{message = "Usuario actualizado exitosamente"});
 
             }
             catch (Exception ex)
