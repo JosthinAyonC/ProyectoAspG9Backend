@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ASPprojects\\UG\\CooperativaDeBuses\\CooperativaDeBuses\\CooperativaDeBuses.csproj": {}
+    "D:\\DEVELOPMENT\\ASPprojects\\UG\\CooperativaDeBuses\\CooperativaDeBuses\\CooperativaDeBuses.csproj": {}
   },
   "projects": {
-    "D:\\ASPprojects\\UG\\CooperativaDeBuses\\CooperativaDeBuses\\CooperativaDeBuses.csproj": {
+    "D:\\DEVELOPMENT\\ASPprojects\\UG\\CooperativaDeBuses\\CooperativaDeBuses\\CooperativaDeBuses.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ASPprojects\\UG\\CooperativaDeBuses\\CooperativaDeBuses\\CooperativaDeBuses.csproj",
+        "projectUniqueName": "D:\\DEVELOPMENT\\ASPprojects\\UG\\CooperativaDeBuses\\CooperativaDeBuses\\CooperativaDeBuses.csproj",
         "projectName": "CooperativaDeBuses",
-        "projectPath": "D:\\ASPprojects\\UG\\CooperativaDeBuses\\CooperativaDeBuses\\CooperativaDeBuses.csproj",
+        "projectPath": "D:\\DEVELOPMENT\\ASPprojects\\UG\\CooperativaDeBuses\\CooperativaDeBuses\\CooperativaDeBuses.csproj",
         "packagesPath": "C:\\Users\\AMD Ryzen\\.nuget\\packages\\",
-        "outputPath": "D:\\ASPprojects\\UG\\CooperativaDeBuses\\CooperativaDeBuses\\obj\\",
+        "outputPath": "D:\\DEVELOPMENT\\ASPprojects\\UG\\CooperativaDeBuses\\CooperativaDeBuses\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\AMD Ryzen\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -46,7 +46,7 @@
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.20, )"
+              "version": "[6.0.21, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -56,7 +56,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[6.0.15, )"
+              "version": "[6.0.16, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",

@@ -19,7 +19,7 @@ namespace CooperativaDeBuses.Models.Repositories.UsuarioRepository
 
         public async Task<Usuario> GetUsuario(int id)
         {
-            return await _context.Usuario.FindAsync(id);
+            return await _context.Usuarios.FindAsync(id);
         }
 
 
@@ -31,9 +31,9 @@ namespace CooperativaDeBuses.Models.Repositories.UsuarioRepository
             return usuario;
         }
 
-        public async Task<Usuario> UdateUusuario(Usuario usuario)
+        public async Task<Usuario> UpdateUsuario(Usuario usuario)
         {
-            usuario usuarioExistente = await _context.Usuarios.FindAsync(usuario.Id);
+            Usuario usuarioExistente = await _context.Usuarios.FindAsync(usuario.Id);
 
             if (usuarioExistente == null)
             {
@@ -45,25 +45,29 @@ namespace CooperativaDeBuses.Models.Repositories.UsuarioRepository
                 return null;
             }
 
-            // if (usuario.Capacidad != 0)
-            // {
-            //     usuarioExistente.Capacidad = usuario.Capacidad;
-            // }
-            // if (usuario.Model != null)
-            // {
-            //     usuarioExistente.Model = usuario.Model;
-            // }
-            // if (usuario.Marca != null)
-            // {
-            //     usuarioExistente.Marca = usuario.Marca;
-            // }
-            // if (usuario.Placa != null)
-            // {
-            //     usuarioExistente.Placa = usuario.Placa;
-            // }if (usuario.Status != null)
-            // {
-            //     usuarioExistente.Status = usuario.Status;
-            // }
+            if (usuario.Firstname != null)
+            {
+                usuarioExistente.Firstname = usuario.Firstname;
+            }
+            if (usuario.Lastname != null)
+            {
+                usuarioExistente.Lastname = usuario.Lastname;
+            }
+            if (usuario.UsuarioRoles != null)
+            {
+                usuarioExistente.UsuarioRoles = usuario.UsuarioRoles;
+            }
+            if (usuario.Ci != null)
+            {
+                usuarioExistente.Ci = usuario.Ci;
+            }
+            if (usuario.Username != null)
+            {
+                usuarioExistente.Username = usuario.Username;
+            }if (usuario.Status != null)
+            {
+                usuarioExistente.Status = usuario.Status;
+            }
 
             await _context.SaveChangesAsync();
             return usuarioExistente;
@@ -76,5 +80,9 @@ namespace CooperativaDeBuses.Models.Repositories.UsuarioRepository
             await _context.SaveChangesAsync();
         }
 
+        public async Task<Usuario> GetByUserCi(string id)
+        {
+            return await _context.Usuarios.FirstOrDefaultAsync(usuario => usuario.Ci == id);
+        }
     }
 }

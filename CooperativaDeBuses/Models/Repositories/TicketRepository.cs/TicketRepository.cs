@@ -19,15 +19,28 @@ namespace CooperativaDeBuses.Models.Repositories.TicketRepository
 
         public async Task<Ticket> GetTicket(int id)
         {
-            return await _context.Ticket.FindAsync(id);
+            return await _context.Tickets.FindAsync(id);
         }
 
 
         public async Task<Ticket> AddTicket(Ticket ticket)
         {
             ticket.Status = "A";
+
+            ticket.IdUsuarioNavigation = await _context.Usuarios.FindAsync(ticket.IdUsuario);
+
+            ticket.IdViajeNavigation = await _context.Viajes.FindAsync(ticket.IdViaje);
+
             _context.Tickets.Add(ticket);
+
+            Viaje viaje = await _context.Viajes.FindAsync(ticket.IdViaje);
+
+            Bus bus = await _context.Buses.FindAsync(viaje.BusId);
+
+            bus.Capacidad = bus.Capacidad - 1;
+
             await _context.SaveChangesAsync();
+
             return ticket;
         }
 
@@ -45,29 +58,27 @@ namespace CooperativaDeBuses.Models.Repositories.TicketRepository
                 return null;
             }
 
-            // if (ticket.Capacidad != 0)
-            // {
-            //     ticketExistente.Capacidad = ticket.Capacidad;
-            // }
-            // if (ticket.Model != null)
-            // {
-            //     ticketExistente.Model = ticket.Model;
-            // }
-            // if (ticket.Marca != null)
-            // {
-            //     ticketExistente.Marca = ticket.Marca;
-            // }
-            // if (ticket.Placa != null)
-            // {
-            //     ticketExistente.Placa = ticket.Placa;
-            // }if (ticket.Status != null)
-            // {
-            //     ticketExistente.Status = ticket.Status;
-            // }
+            if (ticket.IdUsuario != 0 || ticket.IdUsuario != null)
+            {
+                ticketExistente.IdUsuario = ticket.IdUsuario;
+            }
+            if (ticket.IdViaje != 0 || ticket.IdViaje != null)
+            {
+                ticketExistente.IdViaje = ticket.IdViaje;
+            }
+            if (ticket.Observacion != null)
+            {
+                ticketExistente.Observacion = ticket.Observacion;
+            }
+            if (ticket.Status != null)
+            {
+                ticketExistente.Status = ticket.Status;
+            }
 
             await _context.SaveChangesAsync();
             return ticketExistente;
         }
+
 
         public async Task DeleteTicket(int id)
         {
@@ -76,5 +87,9 @@ namespace CooperativaDeBuses.Models.Repositories.TicketRepository
             await _context.SaveChangesAsync();
         }
 
+        public async Task<List<Ticket>> GetTicketsByUserId(int id)
+        {
+            return await _context.Tickets.Where(ticket => ticket.IdUsuario == id).ToListAsync();
+        }
     }
 }

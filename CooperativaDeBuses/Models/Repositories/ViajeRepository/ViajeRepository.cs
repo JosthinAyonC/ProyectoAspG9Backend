@@ -14,7 +14,7 @@ namespace CooperativaDeBuses.Models.Repositories.ViajeRepository
 
         public async Task<List<Viaje>> GetListViaje()
         {
-            return await _context.Viajes.ToListAsync();
+            return await _context.Viajes.Where(viaje => viaje.Status != "N").OrderByDescending(viaje => viaje.Id).ToListAsync();
         }
 
         public async Task<Viaje> GetViaje(int id)

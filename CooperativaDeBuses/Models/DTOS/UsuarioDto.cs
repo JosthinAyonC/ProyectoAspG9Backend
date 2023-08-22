@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CooperativaDeBuses.Models;
 
-public partial class Usuario
+public partial class UsuarioDto
 {
     public int? Id { get; set; }
 

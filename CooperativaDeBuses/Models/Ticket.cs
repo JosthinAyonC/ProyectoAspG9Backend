@@ -13,9 +13,9 @@ public partial class Ticket
 
     public string? Observacion { get; set; }
 
-    public string Status { get; set; } = null!;
+    public string? Status { get; set; } = null!;
 
-    public virtual Usuario IdUsuarioNavigation { get; set; } = null!;
+    public virtual Usuario? IdUsuarioNavigation { get; set; } 
 
-    public virtual Viaje IdViajeNavigation { get; set; } = null!;
+    public virtual Viaje? IdViajeNavigation { get; set; } 
 }

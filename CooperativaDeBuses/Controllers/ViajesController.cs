@@ -68,7 +68,7 @@ namespace CooperativaDeBuses.Controllers
 
                 var viajeGuardado = await _viajeRepository.AddViaje(viaje);
 
-                return Ok("Viaje guardado exitosamente");
+                return Ok(new {message = "Viaje guardado exitosamente" });
 
             }
             catch (Exception ex)

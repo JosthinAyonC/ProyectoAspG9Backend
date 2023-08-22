@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CooperativaDeBuses.Models;
 
-public partial class Ticket
+public partial class TicketDto
 {
     public int? Id { get; set; }
 
