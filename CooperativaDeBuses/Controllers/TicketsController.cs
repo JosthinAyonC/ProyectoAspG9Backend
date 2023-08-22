@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CooperativaDeBuses.Models;
 using CooperativaDeBuses.Models.Repositories.TicketRepository;
+using CooperativaDeBuses.Models.Repositories.UsuarioRepository;
 using AutoMapper;
 
 
@@ -19,13 +20,14 @@ namespace CooperativaDeBuses.Controllers
         private readonly ITicketRepository _ticketRepository;
         private readonly IMapper _mapper;
 
-        public TicketsController(ITicketRepository ticketRepository, IMapper mapper)
+        public TicketsController(ITicketRepository ticketRepository, IMapper mapper, IUsuarioRepository usuarioRepository)
         {
             _ticketRepository = ticketRepository;
+            _usuarioRepository = usuarioRepository;
             _mapper = mapper;
         }
 
-       [HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
             try
@@ -40,11 +42,16 @@ namespace CooperativaDeBuses.Controllers
         }
 
         [HttpGet("usuario/{id}")]
-        public async Task<ActionResult<IEnumerable<Ticket>>> GetTicketsByUserId()
+        public async Task<ActionResult<IEnumerable<Ticket>>> GetTicketsByUserId(string id)
         {
             try
             {
-                var tickets = await _ticketRepository.GetListTicket();
+                Usuario usuario = await _usuarioRepository.GetByUserCi(id);
+                if (usuario == null)
+                {
+                    return NotFound(new { message = "No se encontraron tickets para el usuario con cedula: " + id });
+                }
+                var tickets = await _ticketRepository.GetTicketsByUserId(usuario.Id);
                 return Ok(tickets);
             }
             catch (Exception ex)
@@ -108,7 +115,7 @@ namespace CooperativaDeBuses.Controllers
 
                 Ticket ticketA = await _ticketRepository.UpdateTicket(ticket);
 
-                return Ok(new{message = "Ticket actualizado exitosamente"});
+                return Ok(new { message = "Ticket actualizado exitosamente" });
 
             }
             catch (Exception ex)

@@ -89,7 +89,9 @@ namespace CooperativaDeBuses.Models.Repositories.TicketRepository
 
         public async Task<List<Ticket>> GetTicketsByUserId(int id)
         {
-            return await _context.Tickets.Where(ticket => ticket.IdUsuario == id).ToListAsync();
+            return await await _context.Tickets
+                .Where(ticket => ticket.IdUsuario == id && ticket.Status != "N")
+                .ToListAsync();
         }
     }
 }
