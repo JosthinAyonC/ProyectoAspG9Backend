@@ -91,7 +91,7 @@ namespace CooperativaDeBuses.Controllers
                     return NotFound();
                 }
 
-                wait _viajeRepository.UpdateViaje(viaje);
+                await _viajeRepository.UpdateViaje(viaje);
 
                 return Ok(new {message = "Viaje actualizado exitosamente" });
 

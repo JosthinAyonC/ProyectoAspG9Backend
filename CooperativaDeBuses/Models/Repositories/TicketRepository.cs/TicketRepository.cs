@@ -29,15 +29,15 @@ namespace CooperativaDeBuses.Models.Repositories.TicketRepository
 
             ticket.IdUsuarioNavigation = await _context.Usuarios.FindAsync(ticket.IdUsuario);
 
-            ticket.IdViajeNavigation = await _context.Viajes.FindAsync(ticket.IdViaje);
+            Viaje viaje = await _context.Viajes.FindAsync(ticket.IdViaje); 
 
-            _context.Tickets.Add(ticket);
-
-            Viaje viaje = await _context.Viajes.FindAsync(ticket.IdViaje);
+            ticket.IdViajeNavigation = viaje;
 
             Bus bus = await _context.Buses.FindAsync(viaje.BusId);
 
             bus.Capacidad = bus.Capacidad - 1;
+
+            await _context.Tickets.AddAsync(ticket);
 
             await _context.SaveChangesAsync();
 
@@ -89,7 +89,7 @@ namespace CooperativaDeBuses.Models.Repositories.TicketRepository
 
         public async Task<List<Ticket>> GetTicketsByUserId(int id)
         {
-            return await await _context.Tickets
+            return await  _context.Tickets
                 .Where(ticket => ticket.IdUsuario == id && ticket.Status != "N")
                 .ToListAsync();
         }

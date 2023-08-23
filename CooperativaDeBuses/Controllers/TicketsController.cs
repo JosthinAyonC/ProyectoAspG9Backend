@@ -18,6 +18,7 @@ namespace CooperativaDeBuses.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly ITicketRepository _ticketRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
         private readonly IMapper _mapper;
 
         public TicketsController(ITicketRepository ticketRepository, IMapper mapper, IUsuarioRepository usuarioRepository)

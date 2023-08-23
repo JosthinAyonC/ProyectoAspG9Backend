@@ -26,7 +26,8 @@ namespace CooperativaDeBuses.Models.Repositories.ViajeRepository
         public async Task<Viaje> AddViaje(Viaje viaje)
         {
             viaje.Status = "A";
-            viaje.Bus = await _context.Buses.FindAsync(viaje.BusId);
+            Bus bus = await _context.Buses.FindAsync(viaje.BusId);
+            viaje.Bus = bus;
             _context.Viajes.Add(viaje);
             await _context.SaveChangesAsync();
             return viaje;

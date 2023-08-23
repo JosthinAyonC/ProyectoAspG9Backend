@@ -31,7 +31,7 @@ namespace CooperativaDeBuses.Controllers
             try
             {
                 var Usuarios = await _usuarioRepository.GetListUsuario();
-                return Ok(new {message = "Usuario guardado exitosamente" });
+                return Ok(Usuarios);
             }
             catch (Exception ex)
             {
